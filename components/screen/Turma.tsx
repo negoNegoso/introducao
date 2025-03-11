@@ -1,14 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, ScrollView } from 'react-native';
 import { View } from '@/components/Themed';
-import Header from '@/components/Header';
-import ImageComponent from '@/components/ImageComponent';
-import CustomTextInput from '@/components/CustomTextInput';
+import Header from '@/components/Layout/Header';
+import ImageComponent from '@/components/Image/ImageComponent';
+import CustomTextInput from '@/components/TextInput/CustomTextInput';
+import TurmaList, { TurmaType } from '../List/TurmaList';
+
+const turmasData: TurmaType[] = Array.from({ length: 6 }, (_, i) => ({
+  id: `${i + 1}`,
+  name: `DSM${i + 1}`,
+}));
 
 export default function TurmaScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <>
         <Header
           title="Turma:"
           subtitle="DSM4"
@@ -22,10 +28,28 @@ export default function TurmaScreen() {
         />
 
         <CustomTextInput
-          defaultValue="You can type in me"
+          hint="Digite o nome da turma..."
           inputStyle={styles.customInput}
+        // defaultValue="Valor inicial opcional"
         />
-      </ScrollView>
+
+      </>
+      <TurmaList
+        turmas={turmasData}
+        style={styles.listContainer}
+        itemStyle={styles.listItem}
+      />
+
+      <TurmaList
+        turmas={turmasData}
+        style={{ paddingHorizontal: 0 }}
+        itemStyle={{
+          backgroundColor: '#e3f2fd',
+          borderLeftWidth: 4,
+          borderLeftColor: '#2196f3'
+        }}
+      />
+
 
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
@@ -35,21 +59,32 @@ export default function TurmaScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   customHeader: {
     backgroundColor: '#f5f5f5',
     borderRadius: 8,
-    margin: 15,
+    margin: 16,
+    padding: 12,
   },
   customImage: {
     borderRadius: 100,
-    marginVertical: 20,
+    marginVertical: 16,
+    alignSelf: 'center',
   },
   customInput: {
     backgroundColor: '#fff',
     borderRadius: 8,
-    marginHorizontal: 25,
+    marginHorizontal: 16,
+    marginBottom: 20,
+  },
+  listContainer: {
+    paddingHorizontal: 16,
+  },
+  listItem: {
+    backgroundColor: '#ffffff',
+    shadowOpacity: 0.05,
   },
 });
