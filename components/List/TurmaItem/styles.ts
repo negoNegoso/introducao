@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   itemContainer: {
-    padding: 20,
-    marginVertical: 8,
+    padding: 10,
+    marginVertical: 4,
     borderRadius: 10,
     backgroundColor: '#fff',
     borderLeftWidth: 6, // Largura da borda
