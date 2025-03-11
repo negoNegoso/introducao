@@ -1,4 +1,3 @@
-// src/components/CustomTextInput/styles.ts
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -11,5 +10,6 @@ export default StyleSheet.create({
     fontSize: 16,
     backgroundColor: '#fff',
     marginVertical: 10,
+    marginHorizontal: 16,
   },
 });

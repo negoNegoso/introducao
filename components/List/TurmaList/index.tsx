@@ -11,16 +11,24 @@ export type TurmaType = {
 
 type TurmaListProps = {
   turmas: TurmaType[];
+  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+  contentContainerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
   itemStyle?: ViewStyle;
   onTurmaPress?: (turma: TurmaType) => void;
 };
-
-export default function TurmaList({ turmas, style, itemStyle, onTurmaPress }: TurmaListProps) {
+export default function TurmaList({
+  turmas,
+  ListHeaderComponent,
+  contentContainerStyle,
+  itemStyle,
+  onTurmaPress,
+}: TurmaListProps) {
   const renderItem: ListRenderItem<TurmaType> = ({ item }) => (
     <TurmaItem
       turma={item}
-      onPress={() => onTurmaPress?.(item)} // Passa o evento
+      style={itemStyle}
+      onPress={() => onTurmaPress?.(item)}
     />
   );
 
@@ -29,8 +37,12 @@ export default function TurmaList({ turmas, style, itemStyle, onTurmaPress }: Tu
       data={turmas}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={[styles.container, style]}
+      ListHeaderComponent={ListHeaderComponent}
+      contentContainerStyle={contentContainerStyle}
       showsVerticalScrollIndicator={false}
+      initialNumToRender={10}
+      maxToRenderPerBatch={5}
+      windowSize={10}
     />
   );
 }

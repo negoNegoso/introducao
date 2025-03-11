@@ -1,65 +1,75 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, ScrollView } from 'react-native';
-import { View } from '@/components/Themed';
-import Header from '@/components/Layout/Header';
-import ImageComponent from '@/components/Image/ImageComponent';
-import CustomTextInput from '@/components/TextInput/CustomTextInput';
-import TurmaList, { TurmaType } from '../List/TurmaList';
 import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet } from 'react-native';
+import { View } from '@/components/Themed';
+import TurmaList, { TurmaType } from '../List/TurmaList';
+import Header from '../Layout/Header';
+import ImageComponent from '../Image/ImageComponent';
+import CustomTextInput from '../TextInput/CustomTextInput';
+
 
 const courseColors = [
-  '#FF6B6B', // Vermelho
-  '#4ECDC4', // Turquesa
-  '#45B7D1', // Azul claro
-  '#96CEB4', // Verde água
-  '#FFEEAD', // Amarelo
-  '#D4A5A5', // Rosa
+  '#FF6B6B', '#4ECDC4', '#45B7D1',
+  '#96CEB4', '#FFEEAD', '#D4A5A5'
 ];
 
 const turmasData: TurmaType[] = Array.from({ length: 6 }, (_, i) => ({
   id: `${i + 1}`,
   name: `DSM${i + 1}`,
-  color: courseColors[i % courseColors.length] // Cicla pelas cores
+  color: courseColors[i % courseColors.length]
 }));
 
 export default function TurmaScreen() {
-  const [selectedTurmaColor, setSelectedTurmaColor] = useState('#2f95dc'); // Cor inicial
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTurmaColor, setSelectedTurmaColor] = useState(courseColors[3]);
 
-  const handleTurmaPress = (turma: TurmaType) => {
-    setSelectedTurmaColor(turma.color);
-  };
+  const filteredTurmas = turmasData.filter(turma =>
+    turma.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+
+  const ListHeaderComponent = (
+    <>
+      <Header
+        title="Turma:"
+        subtitle="DSM4"
+        containerStyle={styles.customHeader}
+        subtitleStyle={{ color: selectedTurmaColor }}
+      />
+
+      <ImageComponent
+        uri="https://i.pinimg.com/originals/c6/69/c0/c669c0fc50112bbda1ad0d16856aee98.png"
+        color={selectedTurmaColor}
+        imageStyle={styles.customImage}
+      />
+
+      <CustomTextInput
+        hint="Buscar turma..."
+        onChangeText={setSearchQuery}
+        inputStyle={styles.customInput}
+      />
+    </>
+  );
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Header
-          title="Turma:"
-          subtitle="DSM4"
-          containerStyle={styles.customHeader}
-          subtitleStyle={{ color: selectedTurmaColor }} // Cor dinâmica
-        />
-
-        <ImageComponent
-          uri="https://i.pinimg.com/originals/c6/69/c0/c669c0fc50112bbda1ad0d16856aee98.png"
-          imageStyle={styles.customImage}
-          color={selectedTurmaColor} // Nova prop
-        />
-
-        <TurmaList
-          turmas={turmasData}
-          onTurmaPress={handleTurmaPress} // Nova prop
-          // ... outras props
-        />
-      </ScrollView>
+      <TurmaList
+        turmas={filteredTurmas}
+        ListHeaderComponent={ListHeaderComponent}
+        contentContainerStyle={styles.listContent}
+        onTurmaPress={(turma) => setSelectedTurmaColor(turma.color)}
+      />
+      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollContent: {
-    paddingBottom: 20,
+  listContent: {
+    paddingBottom: 40,
   },
   customHeader: {
     backgroundColor: '#f5f5f5',
@@ -68,21 +78,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   customImage: {
-    borderRadius: 100,
-    marginVertical: 16,
     alignSelf: 'center',
   },
   customInput: {
     backgroundColor: '#fff',
-    borderRadius: 8,
-    marginHorizontal: 16,
-    marginBottom: 20,
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-  },
-  listItem: {
-    backgroundColor: '#ffffff',
-    shadowOpacity: 0.05,
   },
 });

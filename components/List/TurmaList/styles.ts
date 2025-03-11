@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    padding: 16,
-  },
   itemContainer: {
     padding: 20,
     marginVertical: 8,
+    marginHorizontal: 16,
     borderRadius: 10,
     backgroundColor: '#fff',
+    borderLeftWidth: 6,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

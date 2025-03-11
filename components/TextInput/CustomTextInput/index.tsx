@@ -8,7 +8,7 @@ type CustomTextInputProps = {
   defaultValue?: string;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
-  // Adicione outras props necessárias
+  onChangeText?: (text: string) => void;
 };
 
 export default function CustomTextInput({
@@ -16,6 +16,7 @@ export default function CustomTextInput({
   defaultValue,
   containerStyle,
   inputStyle,
+  onChangeText,
   ...props
 }: CustomTextInputProps) {
   return (
@@ -25,6 +26,7 @@ export default function CustomTextInput({
         placeholder={hint}
         defaultValue={defaultValue}
         placeholderTextColor="#888" // Cor personalizável
+        onChangeText={onChangeText}
         {...props}
       />
     </View>
