@@ -2,7 +2,6 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  // No styles.ts do TurmaList
   itemContainer: {
     padding: 20,
     marginVertical: 8,

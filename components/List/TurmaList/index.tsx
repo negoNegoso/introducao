@@ -13,11 +13,15 @@ type TurmaListProps = {
   turmas: TurmaType[];
   style?: StyleProp<ViewStyle>;
   itemStyle?: ViewStyle;
+  onTurmaPress?: (turma: TurmaType) => void;
 };
 
-export default function TurmaList({ turmas, style, itemStyle }: TurmaListProps) {
+export default function TurmaList({ turmas, style, itemStyle, onTurmaPress }: TurmaListProps) {
   const renderItem: ListRenderItem<TurmaType> = ({ item }) => (
-    <TurmaItem turma={item} style={itemStyle} />
+    <TurmaItem
+      turma={item}
+      onPress={() => onTurmaPress?.(item)} // Passa o evento
+    />
   );
 
   return (

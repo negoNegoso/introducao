@@ -5,6 +5,7 @@ import Header from '@/components/Layout/Header';
 import ImageComponent from '@/components/Image/ImageComponent';
 import CustomTextInput from '@/components/TextInput/CustomTextInput';
 import TurmaList, { TurmaType } from '../List/TurmaList';
+import { useState } from 'react';
 
 const courseColors = [
   '#FF6B6B', // Vermelho
@@ -22,50 +23,37 @@ const turmasData: TurmaType[] = Array.from({ length: 6 }, (_, i) => ({
 }));
 
 export default function TurmaScreen() {
+  const [selectedTurmaColor, setSelectedTurmaColor] = useState('#2f95dc'); // Cor inicial
+
+  const handleTurmaPress = (turma: TurmaType) => {
+    setSelectedTurmaColor(turma.color);
+  };
+
   return (
     <View style={styles.container}>
-      <>
+      <ScrollView>
         <Header
           title="Turma:"
           subtitle="DSM4"
           containerStyle={styles.customHeader}
-          subtitleStyle={{ color: '#2f95dc' }}
+          subtitleStyle={{ color: selectedTurmaColor }} // Cor dinâmica
         />
 
         <ImageComponent
           uri="https://i.pinimg.com/originals/c6/69/c0/c669c0fc50112bbda1ad0d16856aee98.png"
           imageStyle={styles.customImage}
+          color={selectedTurmaColor} // Nova prop
         />
 
-        <CustomTextInput
-          hint="Digite o nome da turma..."
-          inputStyle={styles.customInput}
-        // defaultValue="Valor inicial opcional"
+        <TurmaList
+          turmas={turmasData}
+          onTurmaPress={handleTurmaPress} // Nova prop
+          // ... outras props
         />
-
-      </>
-      <TurmaList
-        turmas={turmasData}
-        style={styles.listContainer}
-        itemStyle={styles.listItem}
-      />
-
-      <TurmaList
-        turmas={turmasData}
-        style={{ paddingHorizontal: 0 }}
-        itemStyle={{
-          backgroundColor: '#e3f2fd',
-          borderLeftWidth: 4,
-          borderLeftColor: '#2196f3'
-        }}
-      />
-
-
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      </ScrollView>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

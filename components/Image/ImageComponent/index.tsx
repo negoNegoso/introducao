@@ -1,21 +1,26 @@
 import { Image, ViewStyle, ImageStyle } from 'react-native';
 import styles from './styles';
+import { View } from '@/components/Themed';
 
 type ImageComponentProps = {
   uri: string;
-  containerStyle?: ViewStyle;
+  color?: string;
   imageStyle?: ImageStyle;
+  containerStyle?: ViewStyle;
 };
 
 export default function ImageComponent({
   uri,
-  containerStyle,
+  color = '#2f95dc', // Cor padrão
   imageStyle,
+  containerStyle,
 }: ImageComponentProps) {
   return (
-    <Image 
-      source={{ uri }} 
-      style={[styles.image, imageStyle]} 
-    />
+    <View style={[styles.container, containerStyle, { borderColor: color }]}>
+      <Image
+        source={{ uri }}
+        style={[styles.image, { tintColor: color }, imageStyle]}
+      />
+    </View>
   );
 }
