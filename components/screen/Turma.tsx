@@ -6,9 +6,19 @@ import ImageComponent from '@/components/Image/ImageComponent';
 import CustomTextInput from '@/components/TextInput/CustomTextInput';
 import TurmaList, { TurmaType } from '../List/TurmaList';
 
+const courseColors = [
+  '#FF6B6B', // Vermelho
+  '#4ECDC4', // Turquesa
+  '#45B7D1', // Azul claro
+  '#96CEB4', // Verde água
+  '#FFEEAD', // Amarelo
+  '#D4A5A5', // Rosa
+];
+
 const turmasData: TurmaType[] = Array.from({ length: 6 }, (_, i) => ({
   id: `${i + 1}`,
   name: `DSM${i + 1}`,
+  color: courseColors[i % courseColors.length] // Cicla pelas cores
 }));
 
 export default function TurmaScreen() {

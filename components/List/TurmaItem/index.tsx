@@ -9,15 +9,18 @@ type TurmaItemProps = {
   onPress?: () => void;
 };
 
+// No componente TurmaItem
 export function TurmaItem({ turma, style, onPress }: TurmaItemProps) {
   return (
-    <TouchableOpacity
-      style={[styles.itemContainer, style]}
+    <TouchableOpacity 
+      style={[
+        styles.itemContainer, 
+        { borderLeftColor: turma.color }, // Adiciona a cor da borda
+        style
+      ]}
       onPress={onPress}
     >
-      
       <Title style={styles.itemText}>{turma.name}</Title>
-      {/* Adicione ícones ou mais informações aqui */}
     </TouchableOpacity>
   );
 }

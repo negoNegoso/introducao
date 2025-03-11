@@ -2,10 +2,11 @@ import { FlatList, ListRenderItem, StyleProp, ViewStyle } from 'react-native';
 import styles from './styles';
 import { TurmaItem } from '@/components/List/TurmaItem';
 
+// No arquivo do TurmaList
 export type TurmaType = {
   id: string;
   name: string;
-  // Adicione mais propriedades conforme necessário
+  color: string; // Nova propriedade
 };
 
 type TurmaListProps = {
